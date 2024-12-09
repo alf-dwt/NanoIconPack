@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion Integer.parseInt(project.COMPILE_SDK_VERSION)
-    buildToolsVersion project.BUILD_TOOLS_VERSION
+    compileSdk Integer.parseInt(project.COMPILE_SDK_VERSION)
+    // buildToolsVersion project.BUILD_TOOLS_VERSION
+
+    namespace = "com.by_syk.nanoiconpack"
 
     defaultConfig {
         // Package name format: com.[your_name].iconpack.[name_of_your_icon_pack]
@@ -38,6 +40,14 @@ android {
     lintOptions {
         disable 'MissingTranslation'
     }
+    sourceSets {
+        main {
+            jniLibs {
+                // srcDirs 'src\\main\\jni', 'libs'
+                jniLibs.srcDirs = ['libs']
+            }
+        }
+    }
 }
 
 /*repositories {
@@ -45,9 +55,10 @@ android {
 }*/
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':nanoiconpack')
+    testImplementation 'junit:junit:4.12'
+
+    implementation project(':nanoiconpack')
 }
